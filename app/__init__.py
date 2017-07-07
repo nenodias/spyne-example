@@ -35,14 +35,15 @@ class Agenda(ComplexModel):
 class AppService(ServiceBase):
 
     @rpc(String, UnsignedInteger, _returns=Iterable(String))
-    def dizer_ola(ctx, name, times):
+    def dizer_ola(ctx, name, times=1):
         for i in range(times):
             yield 'Olá, %s' % name
 
-    @rpc(Agenda, _returns=Resposta)                                                                                                                       
+    @rpc(Agenda, _returns=Resposta)
     def receber_usuario(ctx, agenda):
         response = Resposta()
-        response.mensagem = 'Serviço executado com sucesso por %s'%(agenda.usuario.nome)
+        if agenda and agenda.usuario:
+          response.mensagem = 'Serviço executado com sucesso por %s'%(agenda.usuario.nome)
         response.sucesso = 1
         return response
 

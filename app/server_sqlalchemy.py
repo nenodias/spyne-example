@@ -158,13 +158,13 @@ class MyApplication(Application):
         except NoResultFound:
             raise ResourceNotFoundError(ctx.in_object)
 
-        except Fault, e:
+        except Fault as e:
             logging.error(e)
             raise
 
-        except Exception, e:
-            logging.exception(e)
-            raise InternalError(e)
+        except Exception as ex:
+            logging.exception(ex)
+            raise InternalError(ex)
 
 
 if __name__=='__main__':
